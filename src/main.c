@@ -12,7 +12,7 @@ int main() {
         line = read_cmd();
         if (strlen(line) == 0) { free(line); continue; }
 
-        // Handle !n recall logic
+        // !n recall
         if (line[0] == '!' && isdigit(line[1])) {
             int idx = atoi(&line[1]);
             char *cmd_from_hist = get_history_cmd(idx);
@@ -24,6 +24,13 @@ int main() {
                 free(line);
                 continue;
             }
+        }
+
+        // check for pipe
+        if (strchr(line, '|')) {
+            execute_with_pipes(line);
+            free(line);
+            continue;
         }
 
         args = tokenize(line);

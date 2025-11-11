@@ -6,7 +6,7 @@
 #define HISTORY_SIZE 20
 
 void display_prompt();
-char *read_cmd();              // now wraps readline()
+char *read_cmd();
 char **tokenize(char *line);
 void execute(char **args);
 void free_tokens(char **args);
@@ -14,5 +14,9 @@ int handle_builtin(char **args);
 void add_history(const char *cmd);
 void show_history();
 char *get_history_cmd(int index);
+
+// new
+int execute_with_redirection(char **args);
+int execute_with_pipes(char *line);
 
 #endif
