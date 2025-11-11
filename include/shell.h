@@ -44,4 +44,15 @@ void list_jobs();
 // control flow
 int handle_if_structure(char *line);
 
+typedef struct VarNode {
+    char name[64];
+    char value[256];
+    struct VarNode *next;
+} VarNode;
+
+void set_variable(const char *name, const char *value);
+char *get_variable(const char *name);
+void print_all_variables();
+void unset_variable(const char *name);
+void expand_variables(char **args);
 #endif

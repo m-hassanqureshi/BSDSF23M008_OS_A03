@@ -41,6 +41,13 @@ int handle_builtin(char **args) {
     show_history();
     return 1;   
     }
-
+    if (strcmp(args[0], "set") == 0) {
+        print_all_variables();
+        return 1;
+    }
+    if (strcmp(args[0], "unset") == 0 && args[1]) {
+        unset_variable(args[1]);
+        return 1;
+    }
     return 0;  // not a built-in command
 }

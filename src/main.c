@@ -45,7 +45,17 @@ int main() {
             if (strchr(trim, '|')) {
                 execute_with_pipes(trim);
             } else {
+                if (strchr(trim, '=') && trim[0] != '=') {
+                    char *eq = strchr(trim, '=');
+                    *eq = '\0';
+                    char *name = trim_whitespace(trim);
+                    char *value = trim_whitespace(eq + 1);
+                    set_variable(name, value);
+                    cmd = strtok(NULL, ";");
+                    continue;
+                }
                 args = tokenize(trim);
+                expand_variables(args); 
                 if (!handle_builtin(args)) {
                     pid_t pid = fork();
                     if (pid == 0) {
