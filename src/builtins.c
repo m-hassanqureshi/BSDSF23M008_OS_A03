@@ -38,6 +38,10 @@ int handle_builtin(char **args) {
         printf("Job control not yet implemented.\n");
         return 1;
     }
+    else if (strcmp(args[0], "history") == 0) {
+    show_history();
+    return 1;   
+    }
 
     return 0;  // not a built-in command
 }
