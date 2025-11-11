@@ -16,7 +16,9 @@
 #define HISTORY_SIZE 20
 #define MAX_JOBS 32
 
+// helper
 char *trim_whitespace(char *str);
+
 // base
 void display_prompt();
 char *read_cmd();
@@ -38,5 +40,8 @@ int execute_with_pipes(char *line);
 void add_job(pid_t pid, const char *cmd);
 void reap_jobs();
 void list_jobs();
+
+// control flow
+int handle_if_structure(char *line);
 
 #endif
