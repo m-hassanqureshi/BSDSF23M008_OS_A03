@@ -30,6 +30,7 @@ int handle_builtin(char **args) {
         printf("  help        - Show this help message\n");
         printf("  exit        - Exit the shell\n");
         printf("  jobs        - Show background jobs (placeholder)\n");
+        printf("  set         - Show all shell variables\n");  
         return 1;
     }
     else if (strcmp(args[0], "jobs") == 0) {
