@@ -12,7 +12,11 @@ int main() {
         line = read_cmd();
         if (strlen(line) == 0) { free(line); continue; }
         args = tokenize(line);
-        execute(args);
+
+        if (!handle_builtin(args)) {
+            execute(args);
+        }
+
         free_tokens(args);
         free(line);
     }

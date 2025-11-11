@@ -9,5 +9,6 @@ char *read_cmd();
 char **tokenize(char *line);
 void execute(char **args);
 void free_tokens(char **args);
+int handle_builtin(char **args);
 
 #endif
