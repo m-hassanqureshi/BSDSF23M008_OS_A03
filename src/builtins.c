@@ -32,12 +32,11 @@ int handle_builtin(char **args) {
         printf("  jobs        - Show background jobs (placeholder)\n");
         return 1;
     }
-
-    // jobs command (placeholder)
     else if (strcmp(args[0], "jobs") == 0) {
-        printf("Job control not yet implemented.\n");
-        return 1;
+    list_jobs();
+    return 1;
     }
+
     else if (strcmp(args[0], "history") == 0) {
     show_history();
     return 1;   
