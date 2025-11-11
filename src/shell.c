@@ -4,35 +4,31 @@
 #include "shell.h"
 
 void display_prompt() {
-    printf("HQshell:- ");
-    fflush(stdout);
+    // prompt handled by readline(), but kept for compatibility
 }
-
-char *read_cmd() {
-    char *line = malloc(MAX_CMD_LEN);
-    if (!fgets(line, MAX_CMD_LEN, stdin)) {
-        printf("\n");
-        exit(0);
-    }
-    line[strcspn(line, "\n")] = '\0';
-    return line;
-}
-
 char **tokenize(char *line) {
-    char **tokens = malloc(MAX_TOKENS * sizeof(char *));
+    int bufsize = MAX_TOKENS, position = 0;
+    char **tokens = malloc(bufsize * sizeof(char*));
     char *token;
-    int pos = 0;
-    token = strtok(line, " ");
-    while (token != NULL) {
-        tokens[pos++] = strdup(token);
-        token = strtok(NULL, " ");
+
+    if (!tokens) {
+        fprintf(stderr, "allocation error\n");
+        exit(EXIT_FAILURE);
     }
-    tokens[pos] = NULL;
+
+    token = strtok(line, " \t\r\n");
+    while (token != NULL) {
+        tokens[position++] = token;
+        if (position >= bufsize) {
+            bufsize += MAX_TOKENS;
+            tokens = realloc(tokens, bufsize * sizeof(char*));
+        }
+        token = strtok(NULL, " \t\r\n");
+    }
+    tokens[position] = NULL;
     return tokens;
 }
 
 void free_tokens(char **args) {
-    for (int i = 0; args[i]; i++)
-        free(args[i]);
     free(args);
 }

@@ -9,12 +9,10 @@ int main() {
     char **args;
 
     while (1) {
-        display_prompt();
         line = read_cmd();
-
         if (strlen(line) == 0) { free(line); continue; }
 
-        // Handle !n before anything else
+        // Handle !n recall logic
         if (line[0] == '!' && isdigit(line[1])) {
             int idx = atoi(&line[1]);
             char *cmd_from_hist = get_history_cmd(idx);
@@ -28,7 +26,6 @@ int main() {
             }
         }
 
-        add_history(line);
         args = tokenize(line);
 
         if (!handle_builtin(args))

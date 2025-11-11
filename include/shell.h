@@ -6,7 +6,7 @@
 #define HISTORY_SIZE 20
 
 void display_prompt();
-char *read_cmd();
+char *read_cmd();              // now wraps readline()
 char **tokenize(char *line);
 void execute(char **args);
 void free_tokens(char **args);
