@@ -10,14 +10,12 @@ void execute(char **args) {
 
     pid_t pid = fork();
     if (pid == 0) {
-        execute_with_redirection(args); // child handles < and >
-        exit(0);
-    } 
-    else if (pid > 0) {
-        int status;
-        waitpid(pid, &status, 0);
-    } 
-    else {
+        execute_with_redirection(args);
+        perror("execvp");
+        exit(EXIT_FAILURE);
+    } else if (pid > 0) {
+        waitpid(pid, NULL, 0);
+    } else {
         perror("fork");
     }
 }

@@ -13,22 +13,20 @@ typedef struct {
 static Job jobs[MAX_JOBS];
 static int job_count = 0;
 
-/* Add background job */
 void add_job(pid_t pid, const char *cmd) {
     if (job_count < MAX_JOBS) {
         jobs[job_count].pid = pid;
-        strncpy(jobs[job_count].command, cmd, sizeof(jobs[job_count].command) - 1);
+        strncpy(jobs[job_count].command, cmd, sizeof(jobs[job_count].command)-1);
         job_count++;
     }
 }
 
-/* Remove finished jobs */
 void reap_jobs() {
     int status;
     pid_t pid;
     for (int i = 0; i < job_count; ) {
         pid = waitpid(jobs[i].pid, &status, WNOHANG);
-        if (pid > 0) { // process finished
+        if (pid > 0) {
             printf("[Job Done] PID %d: %s\n", jobs[i].pid, jobs[i].command);
             for (int j = i; j < job_count - 1; j++)
                 jobs[j] = jobs[j + 1];
@@ -39,7 +37,6 @@ void reap_jobs() {
     }
 }
 
-/* Print active background jobs */
 void list_jobs() {
     printf("Active background jobs:\n");
     for (int i = 0; i < job_count; i++)
